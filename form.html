@@ -1,0 +1,184 @@
+<html>
+    <head>
+        <title>22CSR046_MKD</title>
+        <style>
+            body,html
+            {
+              margin:0;
+              padding:0;
+              height:100%;
+              font-family:'Palatino','Palatino Linotype','Book Antiqua',Palatino, serif;
+              overflow: hidden;
+            }
+            .container
+            {
+              display:flex;
+              height:100%;
+              flex-direction:row;
+            }
+            .left-half
+            {
+              background-color:rgb(255, 255, 255);
+              display:flex;
+              justify-content: center;
+              height: 100vh;
+              width: 50%;
+            }
+            .right-half
+            {
+                align-self:center;
+                background-color:rgb(255, 255, 255);
+                border: 2px solid rgb(41, 168, 211);;
+                padding:20px;
+                width:50%;
+                flex-direction:column;
+            }
+            input, select, button
+            {
+                margin-bottom:10px;
+                font-family:'Palatino', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;            }
+            h1
+            {
+                text-align:center;
+                margin-top:0;
+            }
+            .error
+            {
+                color:red;
+                display:block;
+            } 
+          </style>
+    </head>
+    <body>
+        <div class="container">
+        <div class="left-half">
+            <img src="https://csi.kongu.edu/img/abtdpt.jpg" alt="notavailable" >
+        </div>
+        <div class="right-half container">
+            <br><br><br>
+        <h1>Credit course registration</h1>
+        <div class="right-half">
+        Student Name:
+        <br>
+        <input type="text" id="name" placeholder="Only characters allowed">
+        <span id="nameerr" class="error"></span>
+        Register Number:
+        <br>
+        <input type="text" id="regno" placeholder="Letters and numbers">
+        <span id="regerr" class="error"></span>
+        Date of Birth:
+        <br>
+        <input type="date" id="dob">
+        <span id="doberr" class="error"></span>
+        Email:
+        <br>
+        <input type="email" id="email" placeholder="@gmail.com">
+        <span id="emailerr" class="error"></span>
+        Password:
+        <br>
+        <input type="password" id="pwd" placeholder="8 characters long">
+        <span id="pwderr" class="error"></span>
+        Mobile Number:
+        <br>
+        <input type="text" id="no" placeholder="10 digits">
+        <span id="phoneerr" class="error"></span>
+        Select Course:
+        <br>
+        <input type="radio" id="do" name="cr">DevOps
+        <input type="radio" id="uiux" name="cr">UI and UX
+        <input type="radio" id="ml" name="cr">MatLab
+        <span id="courseerr" class="error" name="cr"></span>
+        Select a College:<br>
+        <select id="clg">
+        <option value=""></option>        
+        <optgroup label="Colleges:">
+        <option value="kec">Kongu Engineering College</option>
+        <option value="bit">Bannari Amman Institute of Technology</option>
+        <option value="psg">PSG College of Technology</option>
+        <option value="kum">Kumaraguru College of Technology</option>
+        </optgroup>
+        </select>
+        <span id="clgerr" class="error"></span>
+        <input type="checkbox" id="chk">I agree to the terms and conditions.
+        <span id="chkerr" class="error"></span>
+        <button value="submit" id="submit" onclick="validate()">Submit</button>
+        </div></div></div>
+        <script>
+            function validate()
+            {
+                var name=document.getElementById('name').value;
+                var reg=document.getElementById('regno').value;
+                var dob=document.getElementById('dob').value;
+                var email=document.getElementById('email').value;
+                var pwd=document.getElementById('pwd').value;
+                var phone=document.getElementById('no').value;
+                var course=document.querySelectorAll('input[type="radio"]:checked');
+                var clg=document.getElementById('clg').value;
+                var chk=document.getElementById('chk').checked;
+                
+                var nameerr=document.getElementById('nameerr');
+                var regerr=document.getElementById('regerr');
+                var doberr=document.getElementById('doberr');
+                var emailerr=document.getElementById('emailerr');
+                var pwderr=document.getElementById('pwderr');
+                var phoneerr=document.getElementById('phoneerr');
+                var courseerr=document.getElementById('courseerr');
+                var clgerr=document.getElementById('clgerr');
+                var chkerr=document.getElementById('chkerr');
+
+                if (!name||!reg||!dob||!email||!pwd||!phone||!course||!clg||!chk)
+                {
+                    window.alert("Please fill all the boxes.");
+                    return false;
+                }
+                if(!name.match(/^[A-Za-z]+$/))
+                {
+                    nameerr.textContent='Only characters are allowed';
+                    return false;
+                }
+                if(!reg.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-]+$/))
+                {
+                    regerr.textContent='Enter a valid roll number';
+                    return false;
+                }
+                if (!dob)
+                {
+                    doberr.textContent='Please select the date';
+                    return false;
+                }                
+                if (!email.match(/^[a-zA-Z0-9._%+-]+@gmail\.com$/))
+                {
+                  emailerr.textContent='Email must end with @gmail.com';
+                  return false;
+                }
+                if (pwd.length < 6||!/[!@#$%^&*(),.?":{}|<>0-9A-Z]/.test(pwd))
+                {
+                  pwderr.textContent='Must be atleast 6 characters with a special character,a number,and an uppercase letter';
+                  return false;
+                }
+                if(!phone.match(/^[0-9]{10}$/))
+                {
+                    phoneerr.textContent='Enter valid mobile number';
+                    return false;
+                }
+                if(course.length===0)
+                {
+                    courseerr.textContent='Select a course';
+                    return false;
+                }
+                if(clg==='')
+                {
+                    clgerr.textContent='Select a college';
+                    return false;
+                }
+                if (!chk)
+                {
+                    chkerr.textContent='Please tick'
+                    return false;
+                }
+                window.alert("Your response has been recorded.");
+                return true;
+            }
+        </script>
+    </body>
+</html>
